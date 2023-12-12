@@ -1,3 +1,12 @@
+localIcons = [
+    "sct",
+    "skc",
+    "few",
+    "snow",
+    "rain",
+    "wind"
+]
+
 document.addEventListener("DOMContentLoaded", function () {
     const weatherWidget = document.querySelector("weather-widget");
     const apiUrl = `https://api.weather.gov/gridpoints/SGX/55,22/forecast`;
@@ -16,13 +25,23 @@ document.addEventListener("DOMContentLoaded", function () {
                 const windDirection = data.properties.periods[0].windDirection;
 
                 const icon = data.properties.periods[0].icon;
-                console.log(icon)
+                const iconName = icon.split('/')[6]
+                var iconPath = "." + "/" + icon.split('/')[5] + "/" + icon.split('/')[6] + ".png"
+                console.log(iconPath)
+                if (!localIcons.includes(iconName)) {
+                    iconPath = icon //uses one returned my API
+                }
+                console.log(iconPath)
+
                 // Display weather information
                 weatherWidget.innerHTML = `
+                    <h1>Weather Widget</h1>
+                    <div id="flex-container">
+                    <img id="weather-icon" src="${iconPath}" alt="Weather Icon">
                     <div>${temperature} °F</div>
+                    </div>
                     <div>${conditions}</div>
                     <div> Wind at ${windSpeed} in ${windDirection} direction</div>
-                    <img id="weather-icon" src="${icon}" alt="Weather Icon">
                 `;
             } else {
                 console.error("Invalid API response structure");
