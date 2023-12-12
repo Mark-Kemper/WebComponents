@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const weatherWidget = document.getElementById("weather-widget");
+    const weatherWidget = document.querySelector("weather-widget");
     const apiUrl = `https://api.weather.gov/gridpoints/SGX/55,22/forecast`;
 
     // Fetch weather data
